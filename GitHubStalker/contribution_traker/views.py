@@ -7,10 +7,9 @@ def index(request):
     return render(request, "index.html")
 
 
-def get_contributions_data(request, username):
+def get_contributions_data(request, username, access_token = None):
     url = "https://api.github.com/graphql"
-    token = "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"
-    headers = {"Authorization": f"Bearer {token}"}
+    headers = {"Authorization": f"Bearer {access_token}"}
     body = f"""
     {{
       user(login: "{username}") {{
@@ -26,10 +25,10 @@ def get_contributions_data(request, username):
       }}
     }}
     """
-    response = requests.post(url, json={"query": body}, headers=headers)
-    calender = response.json()["data"]["user"]["contributionsCollection"]["contributionCalendar"]
-    calender["weeks"] = calender["weeks"][::-1]
-    if response.status_code==200:
+    response = requests.post(url, json={"query": body}, headers=headers if access_token else None)
+    if response.status_code == 200:
+        calender = response.json()["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+        calender["weeks"] = calender["weeks"][::-1]
         return render(request, "trak_chart.html", calender)
     else:
-        return HttpResponse(f"status code: {response.status_code}\nreson:{response.reason}")
+        return HttpResponse(f"""status code: {response.status_code} reson: {response.reason} content: {response.content}""")
