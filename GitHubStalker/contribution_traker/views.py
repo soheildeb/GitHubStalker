@@ -4,7 +4,7 @@ import requests
 
 
 def index(request):
-    return HttpResponse("hello")
+    return render(request, "index.html")
 
 
 def get_contributions_data(request, username):

@@ -9,6 +9,24 @@
 
 <body>
 {% block content %}
+<form onsubmit="redirectToContributions(event)">
+    <div class="mb-3">
+        <label for="githubUsername" class="form-label">GitHub Username</label>
+        <input type="text" class="form-control" id="githubUsername" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<script>
+    function redirectToContributions(event) {
+        event.preventDefault(); // جلوگیری از ارسال فرم
+        let inputValue = document.getElementById("githubUsername").value.trim();
+        if (inputValue) {
+            window.location.href = `./contributions/${inputValue}`;
+        }
+    }
+</script>
 {% endblock %}
+<title>GitHubStalker</title>
+
 </body>
 </html>
