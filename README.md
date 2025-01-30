@@ -1,4 +1,4 @@
-# github-user-activity
+# GitHubStalker
 Different solution for the [github-user-activity](https://roadmap.sh/projects/github-user-activity) challenge from [roadmap.sh](https://roadmap.sh/) by using **Python** languege and **Django** framework.
 
 ## How to run
