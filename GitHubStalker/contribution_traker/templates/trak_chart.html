@@ -1,10 +1,39 @@
 <!DOCTYPE html>
+{% extends 'base.html'%}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Main Page</title>
 </head>
-<body>
 
+<body>
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Sunday</th>
+        <th scope="col">Monday</th>
+        <th scope="col">Tuesday</th>
+        <th scope="col">Wednesday</th>
+        <th scope="col">Thursday</th>
+        <th scope="col">Friday</th>
+        <th scope="col">Saturday</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for week in weeks %}
+    <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        {% for days in week.contributionDays %}
+        <td style="background-color:{{ days.color }};"></td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<p style="background-color: red;">hello</p>
+{% endblock %}
 </body>
 </html>

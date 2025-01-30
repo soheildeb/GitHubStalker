@@ -27,4 +27,9 @@ def get_contributions_data(request, username):
     }}
     """
     response = requests.post(url, json={"query": body}, headers=headers)
-    return HttpResponse(response.content if response.status_code == 200 else response.reason)
+    calender = response.json()["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+    calender["weeks"] = calender["weeks"][::-1]
+    if response.status_code==200:
+        return render(request, "trak_chart.html", calender)
+    else:
+        return HttpResponse(f"status code: {response.status_code}\nreson:{response.reason}")
